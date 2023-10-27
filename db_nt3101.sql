@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Oct 26, 2023 at 11:34 PM
--- Server version: 8.0.18
--- PHP Version: 7.3.12
+-- Host: 127.0.0.1:3306
+-- Generation Time: Oct 27, 2023 at 01:23 AM
+-- Server version: 8.0.31
+-- PHP Version: 8.0.26
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,47 +24,132 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbempinfo`
+-- Table structure for table `tb_admin`
 --
 
-DROP TABLE IF EXISTS `tbempinfo`;
-CREATE TABLE IF NOT EXISTS `tbempinfo` (
-  `empid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `department` varchar(20) NOT NULL,
-  PRIMARY KEY (`empid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `tb_admin`;
+CREATE TABLE IF NOT EXISTS `tb_admin` (
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 --
--- Dumping data for table `tbempinfo`
+-- Dumping data for table `tb_admin`
 --
 
-INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
-(1, 'aguila', 'nina', 'cics');
+INSERT INTO `tb_admin` (`username`, `password`) VALUES
+('admin', 'admin');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbstudinfo`
+-- Table structure for table `tb_department`
 --
 
-DROP TABLE IF EXISTS `tbstudinfo`;
-CREATE TABLE IF NOT EXISTS `tbstudinfo` (
-  `studid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `course` varchar(20) NOT NULL,
-  PRIMARY KEY (`studid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `tb_department`;
+CREATE TABLE IF NOT EXISTS `tb_department` (
+  `Department ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Department` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  PRIMARY KEY (`Department ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbstudinfo`
+-- Dumping data for table `tb_department`
 --
 
-INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
-(1, 'parker', 'peter', 'bsit'),
-(2, 'kent', 'clark', 'bscs');
+INSERT INTO `tb_department` (`Department ID`, `Department`) VALUES
+('1', 'CICS'),
+('2', 'CAS'),
+('3', 'CABE'),
+('4', 'CIT'),
+('5', 'STAFF');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_main`
+--
+
+DROP TABLE IF EXISTS `tb_main`;
+CREATE TABLE IF NOT EXISTS `tb_main` (
+  `Reserve number` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Department ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Venue ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Teacher's Sr-Code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Student's Sr-Code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Date and Time` datetime(6) NOT NULL,
+  PRIMARY KEY (`Department ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_main`
+--
+
+INSERT INTO `tb_main` (`Reserve number`, `Department ID`, `Venue ID`, `Teacher's Sr-Code`, `Student's Sr-Code`, `Date and Time`) VALUES
+('1', '1', '1', 'null', '21-30079', '2023-10-12 08:50:02.000000'),
+('2', '2', '2', '21-13131', 'null', '2023-10-16 08:50:19.000000');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_student`
+--
+
+DROP TABLE IF EXISTS `tb_student`;
+CREATE TABLE IF NOT EXISTS `tb_student` (
+  `Student's Sr-Code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Department` varchar(40) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_student`
+--
+
+INSERT INTO `tb_student` (`Student's Sr-Code`, `Name`, `Department`) VALUES
+('21-30079', 'Prince', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_teacher`
+--
+
+DROP TABLE IF EXISTS `tb_teacher`;
+CREATE TABLE IF NOT EXISTS `tb_teacher` (
+  `Teacher's Sr-code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Department` varchar(40) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_teacher`
+--
+
+INSERT INTO `tb_teacher` (`Teacher's Sr-code`, `Name`, `Department`) VALUES
+('21-13131', 'Ryndel', '5');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_venue`
+--
+
+DROP TABLE IF EXISTS `tb_venue`;
+CREATE TABLE IF NOT EXISTS `tb_venue` (
+  `Venue ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
+  `Venue` varchar(40) COLLATE utf8mb4_general_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_venue`
+--
+
+INSERT INTO `tb_venue` (`Venue ID`, `Venue`) VALUES
+('1', 'Field'),
+('2', 'Multi Media Room'),
+('3', 'BSU Gym'),
+('3', 'HEB 5th Floor Room');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
