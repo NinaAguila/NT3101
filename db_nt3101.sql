@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Oct 26, 2023 at 11:34 PM
--- Server version: 8.0.18
--- PHP Version: 7.3.12
+-- Host: 127.0.0.1
+-- Generation Time: Oct 27, 2023 at 03:25 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -25,47 +24,105 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbempinfo`
+-- Table structure for table `admin`
 --
 
-DROP TABLE IF EXISTS `tbempinfo`;
-CREATE TABLE IF NOT EXISTS `tbempinfo` (
-  `empid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `department` varchar(20) NOT NULL,
-  PRIMARY KEY (`empid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tbempinfo`
---
-
-INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
-(1, 'aguila', 'nina', 'cics');
+CREATE TABLE `admin` (
+  `id` int(11) NOT NULL,
+  `name` varchar(25) NOT NULL,
+  `user` varchar(25) NOT NULL,
+  `password` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbstudinfo`
+-- Table structure for table `cabe candidate`
 --
 
-DROP TABLE IF EXISTS `tbstudinfo`;
-CREATE TABLE IF NOT EXISTS `tbstudinfo` (
-  `studid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `course` varchar(20) NOT NULL,
-  PRIMARY KEY (`studid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `cabe candidate` (
+  `Sr-Code` varchar(25) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `YearLevel` varchar(25) NOT NULL,
+  `Position` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tbstudinfo`
+-- Table structure for table `cas candidate`
 --
 
-INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
-(1, 'parker', 'peter', 'bsit'),
-(2, 'kent', 'clark', 'bscs');
+CREATE TABLE `cas candidate` (
+  `Sr-Code` varchar(25) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `YearLevel` varchar(25) NOT NULL,
+  `Position` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cete candidate`
+--
+
+CREATE TABLE `cete candidate` (
+  `Sr-Code` varchar(25) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `YearLevel` varchar(25) NOT NULL,
+  `Position` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cics candidate`
+--
+
+CREATE TABLE `cics candidate` (
+  `Sr-Code` varchar(25) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `YearLevel` varchar(25) NOT NULL,
+  `Position` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cit candidate`
+--
+
+CREATE TABLE `cit candidate` (
+  `Sr-Code` varchar(25) NOT NULL,
+  `FirstName` varchar(25) NOT NULL,
+  `LastName` varchar(25) NOT NULL,
+  `YearLevel` varchar(25) NOT NULL,
+  `Position` varchar(25) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admin`
+--
+ALTER TABLE `admin`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `admin`
+--
+ALTER TABLE `admin`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
