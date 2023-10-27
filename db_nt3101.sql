@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3308
--- Generation Time: Oct 26, 2023 at 11:34 PM
--- Server version: 8.0.18
--- PHP Version: 7.3.12
+-- Host: 127.0.0.1
+-- Generation Time: Oct 27, 2023 at 02:36 AM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 7.4.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,53 +18,150 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_nt3101`
+-- Database: `db_nt-3101`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbempinfo`
+-- Table structure for table `admindb`
 --
 
-DROP TABLE IF EXISTS `tbempinfo`;
-CREATE TABLE IF NOT EXISTS `tbempinfo` (
-  `empid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `department` varchar(20) NOT NULL,
-  PRIMARY KEY (`empid`)
-) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-
---
--- Dumping data for table `tbempinfo`
---
-
-INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
-(1, 'aguila', 'nina', 'cics');
+CREATE TABLE `admindb` (
+  `adminID` int(11) NOT NULL,
+  `password` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbstudinfo`
+-- Table structure for table `orderdb`
 --
 
-DROP TABLE IF EXISTS `tbstudinfo`;
-CREATE TABLE IF NOT EXISTS `tbstudinfo` (
-  `studid` int(11) NOT NULL AUTO_INCREMENT,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `course` varchar(20) NOT NULL,
-  PRIMARY KEY (`studid`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `orderdb` (
+  `OrderID` int(100) NOT NULL,
+  `ProductID` int(100) NOT NULL,
+  `SR-Code` varchar(100) NOT NULL,
+  `Quantity` int(20) NOT NULL,
+  `Price` int(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
 
 --
--- Dumping data for table `tbstudinfo`
+-- Table structure for table `productdb`
 --
 
-INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
-(1, 'parker', 'peter', 'bsit'),
-(2, 'kent', 'clark', 'bscs');
+CREATE TABLE `productdb` (
+  `ProductID` int(11) NOT NULL,
+  `ProductName` varchar(255) NOT NULL,
+  `Description` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `shopcart`
+--
+
+CREATE TABLE `shopcart` (
+  `CartID` int(11) NOT NULL,
+  `SR-Code` varchar(255) NOT NULL,
+  `ProductID` int(100) NOT NULL,
+  `Quantity` int(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `student_record`
+--
+
+CREATE TABLE `student_record` (
+  `SR-Code` varchar(100) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `dept` varchar(255) NOT NULL,
+  `prog_sec` varchar(255) NOT NULL,
+  `cnum` varchar(100) NOT NULL,
+  `pass` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `trackorder`
+--
+
+CREATE TABLE `trackorder` (
+  `TrackID` int(100) NOT NULL,
+  `OrderID` int(100) NOT NULL,
+  `SR-Code` varchar(100) NOT NULL,
+  `Status` varchar(255) NOT NULL,
+  `Fee` int(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `admindb`
+--
+ALTER TABLE `admindb`
+  ADD PRIMARY KEY (`adminID`);
+
+--
+-- Indexes for table `orderdb`
+--
+ALTER TABLE `orderdb`
+  ADD PRIMARY KEY (`OrderID`);
+
+--
+-- Indexes for table `productdb`
+--
+ALTER TABLE `productdb`
+  ADD PRIMARY KEY (`ProductID`);
+
+--
+-- Indexes for table `shopcart`
+--
+ALTER TABLE `shopcart`
+  ADD PRIMARY KEY (`CartID`);
+
+--
+-- Indexes for table `student_record`
+--
+ALTER TABLE `student_record`
+  ADD PRIMARY KEY (`SR-Code`);
+
+--
+-- Indexes for table `trackorder`
+--
+ALTER TABLE `trackorder`
+  ADD PRIMARY KEY (`TrackID`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `orderdb`
+--
+ALTER TABLE `orderdb`
+  MODIFY `OrderID` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `shopcart`
+--
+ALTER TABLE `shopcart`
+  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `trackorder`
+--
+ALTER TABLE `trackorder`
+  MODIFY `TrackID` int(100) NOT NULL AUTO_INCREMENT;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
