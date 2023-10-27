@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `tbempinfo` (
 --
 
 INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
-(1, 'aguila', 'nina', 'cics');
+(1, 'basco', 'cyrus', 'cics');
 
 -- --------------------------------------------------------
 
@@ -64,8 +64,8 @@ CREATE TABLE IF NOT EXISTS `tbstudinfo` (
 --
 
 INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
-(1, 'parker', 'peter', 'bsit'),
-(2, 'kent', 'clark', 'bscs');
+(1, 'andes', 'kyla', 'bsit'),
+(2, 'alay', 'kathleen', 'bsit');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
