@@ -169,18 +169,6 @@ INSERT INTO `student_record` (`SR_Code`, `pass`, `firstname`, `lastname`, `email
 -- --------------------------------------------------------
 
 --
--- Table structure for table `trackorder`
---
-
-CREATE TABLE `trackorder` (
-  `TrackID` int(100) NOT NULL,
-  `OrderID` int(100) NOT NULL,
-  `SR-Code` varchar(100) NOT NULL,
-  `Status` varchar(255) NOT NULL,
-  `Fee` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
 -- Indexes for dumped tables
 --
 
@@ -230,11 +218,6 @@ ALTER TABLE `student_record`
   ADD PRIMARY KEY (`SR_Code`);
 
 --
--- Indexes for table `trackorder`
---
-ALTER TABLE `trackorder`
-  ADD PRIMARY KEY (`TrackID`);
-
 --
 -- AUTO_INCREMENT for dumped tables
 --
@@ -268,12 +251,6 @@ ALTER TABLE `productdb`
 --
 ALTER TABLE `shopcart`
   MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
-
---
--- AUTO_INCREMENT for table `trackorder`
---
-ALTER TABLE `trackorder`
-  MODIFY `TrackID` int(100) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
