@@ -3,7 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
+
 -- Generation Time: Nov 23, 2023 at 04:43 PM
+
+-- Generation Time: Nov 12, 2023 at 07:12 PM
+
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -79,7 +83,12 @@ CREATE TABLE `orderdb` (
 --
 
 INSERT INTO `orderdb` (`OrderID`, `SR_Code`, `Orderdate`, `Status`, `OrderCost`) VALUES
+
 (125, '21-30169', '2023-11-23', 'For approval', 320);
+
+(97, '21-30169', '2023-11-07', 'Approved', 27),
+(114, '21-30169', '2023-11-10', 'Approved', 9);
+
 
 -- --------------------------------------------------------
 
@@ -103,6 +112,10 @@ INSERT INTO `orderitems` (`OrderItemID`, `OrderID`, `ProductID`, `Quantity`, `To
 (153, 125, 34, 1, 50),
 (154, 125, 39, 1, 270);
 
+(117, 97, 1, 3, 27),
+(142, 114, 1, 1, 9);
+
+
 -- --------------------------------------------------------
 
 --
@@ -122,12 +135,18 @@ CREATE TABLE `productdb` (
 --
 
 INSERT INTO `productdb` (`ProductID`, `ProductName`, `Price`, `image`, `AvailStocks`) VALUES
+
 (34, 'Pin', '50', 'pin.png', 10),
 (35, 'Department Shirt', '250', 'deptshirt.png', 10),
 (36, 'Polo Shirt', '500', 'poloshirt.png', 10),
 (37, 'Sticker', '5', 'sticker.png', 5),
 (38, 'Jersey Sando', '250', 'jerseysando.jpg', 9),
 (39, 'Jersey Shirt', '270', 'jerseyshirt.jpg', 7);
+(1, 'Shot Glass', '9', '320140-removebg-preview.png', 7),
+(3, 'Pin', '4', 'IMS.png', 9),
+(4, 'Shirt', '200', 'EscuzarPaulAlvin_BSIT2203.png', 9),
+(5, 'Id Lace', '50', 'andre-benz-cXU6tNxhub0-unsplash.jpg', 9);
+
 
 -- --------------------------------------------------------
 
@@ -166,6 +185,11 @@ CREATE TABLE `student_record` (
 INSERT INTO `student_record` (`SR_Code`, `pass`, `firstname`, `lastname`, `email`, `dept`, `prog_sec`, `cnum`) VALUES
 ('21-30169', 'Pol', 'Paul Alvin', 'Tolentino', '21-30169@g.batstate-u.edu.ph', 'CICS', 'BSIT-NT-3101', '09090774577'),
 ('21-33112', 'Lord', 'Wingell Lord', 'Vinas', 'ichigokurosaki@gmail.com', 'CICS', 'BSIT-NT-3101', '09445278541');
+
+
+
+-- --------------------------------------------------------
+
 
 --
 -- Indexes for dumped tables
@@ -217,6 +241,10 @@ ALTER TABLE `student_record`
   ADD PRIMARY KEY (`SR_Code`);
 
 --
+
+
+--
+
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -230,25 +258,41 @@ ALTER TABLE `contactus`
 -- AUTO_INCREMENT for table `orderdb`
 --
 ALTER TABLE `orderdb`
+
   MODIFY `OrderID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=126;
+
+  MODIFY `OrderID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+
 
 --
 -- AUTO_INCREMENT for table `orderitems`
 --
 ALTER TABLE `orderitems`
+
   MODIFY `OrderItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=155;
+
+  MODIFY `OrderItemID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=143;
+
 
 --
 -- AUTO_INCREMENT for table `productdb`
 --
 ALTER TABLE `productdb`
+
   MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+
+  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
 
 --
 -- AUTO_INCREMENT for table `shopcart`
 --
 ALTER TABLE `shopcart`
+
   MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+  MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
 
 --
 -- Constraints for dumped tables
