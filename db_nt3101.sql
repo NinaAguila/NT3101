@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 02:01 AM
+-- Generation Time: Nov 24, 2023 at 03:25 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -22,6 +22,109 @@ SET time_zone = "+00:00";
 --
 
 -- --------------------------------------------------------
+
+--
+-- Table structure for table `productdb`
+--
+
+CREATE TABLE `productdb` (
+  `ProductID` int(100) NOT NULL,
+  `ProductName` varchar(255) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `Price` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `productdb`
+--
+
+INSERT INTO `productdb` (`ProductID`, `ProductName`, `created_by`, `Price`, `image`) VALUES
+(64, 'Organizational Shrit', 1, '550', 'product-1700743519.png'),
+(65, 'Department shirt', 1, '550', 'product-1700751825.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productsuppliers`
+--
+
+CREATE TABLE `productsuppliers` (
+  `id` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `product` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `productsuppliers`
+--
+
+INSERT INTO `productsuppliers` (`id`, `supplier`, `product`, `updated_at`, `created_at`) VALUES
+(16, 6, 64, '2023-11-23 13:45:19', '2023-11-23 13:45:19'),
+(17, 9, 65, '2023-11-23 16:03:45', '2023-11-23 16:03:45');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_supplier`
+--
+
+CREATE TABLE `product_supplier` (
+  `id` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `product` int(11) NOT NULL,
+  `quantity_ordered` int(11) NOT NULL,
+  `quantity_received` int(11) NOT NULL,
+  `quantity_remaining` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `stocks`
+--
+
+CREATE TABLE `stocks` (
+  `id` int(11) NOT NULL,
+  `product_id` int(100) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `id` int(11) NOT NULL,
+  `supplier_name` varchar(191) NOT NULL,
+  `supplier_location` varchar(191) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `created_by` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `suppliers`
+--
+
+INSERT INTO `suppliers` (`id`, `supplier_name`, `supplier_location`, `email`, `created_by`, `created_at`, `updated_at`) VALUES
+(6, 'test_supplier', 'lipa', 'testsupplier@gmail.com', 1, '2023-11-23 13:38:05', '2023-11-23 13:38:05'),
+(9, 'test_supplier2', 'lipa2', 'testsupplier2@gmail.com', 1, '2023-11-23 16:03:28', '2023-11-23 16:03:28');
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `tbempinfo`
 --
@@ -70,8 +173,6 @@ INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `first_name` varchar(25) NOT NULL,
-  `last_name` varchar(25) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` varchar(100) NOT NULL,
   `created_at` datetime NOT NULL,
@@ -83,76 +184,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `created_at`, `updated_at`, `emp`) VALUES
-(1, 'johnMatthew', 'Tizon', 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-15 11:00:22', 1),
-(37, 'kyle', 'carurucan', 'kyle@gmail.com', 'kyle123', '2023-11-24 00:25:33', '2023-11-24 00:25:33', 2);
---
--- Table structure for table `productdb`
---
-
-CREATE TABLE `productdb` (
-  `ProductID` int(100) NOT NULL,
-  `ProductName` varchar(255) NOT NULL,
-  `Price` varchar(255) NOT NULL,
-  `image` varchar(255) NOT NULL,
-  `AvailStocks` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `productdb`
---
-
-INSERT INTO `productdb` (`ProductID`, `ProductName`, `Price`, `image`, `AvailStocks`) VALUES
-(64, 'Organizational Shrit', '550', 'product-1700743519.png', '200'),
-(65, 'Department shirt', '550', 'product-1700751825.png', '100');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `productsuppliers`
---
-
-CREATE TABLE `productsuppliers` (
-  `id` int(11) NOT NULL,
-  `supplier` int(11) NOT NULL,
-  `product` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `productsuppliers`
---
-
-INSERT INTO `productsuppliers` (`id`, `supplier`, `product`, `updated_at`, `created_at`) VALUES
-(16, 6, 64, '2023-11-23 13:45:19', '2023-11-23 13:45:19'),
-(17, 9, 65, '2023-11-23 16:03:45', '2023-11-23 16:03:45');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `suppliers`
---
-
-CREATE TABLE `suppliers` (
-  `id` int(11) NOT NULL,
-  `supplier_name` varchar(191) NOT NULL,
-  `supplier_location` varchar(191) NOT NULL,
-  `email` varchar(100) NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `suppliers`
---
-
-INSERT INTO `suppliers` (`id`, `supplier_name`, `supplier_location`, `email`, `created_by`, `created_at`, `updated_at`) VALUES
-(6, 'test_supplier', 'lipa', 'testsupplier@gmail.com', 1, '2023-11-23 13:38:05', '2023-11-23 13:38:05'),
-(9, 'test_supplier2', 'lipa2', 'testsupplier2@gmail.com', 1, '2023-11-23 16:03:28', '2023-11-23 16:03:28');
-
--- --------------------------------------------------------
+INSERT INTO `users` (`id`, `email`, `password`, `created_at`, `updated_at`, `emp`) VALUES
+(1, 'johnmatthew@gmail.com', 'johnmatthew', '2023-11-15 11:00:22', '2023-11-15 11:00:22', 1),
+(37, 'kyle@gmail.com', 'kyle123', '2023-11-24 00:25:33', '2023-11-24 00:25:33', 2);
 
 --
 -- Indexes for dumped tables
@@ -162,7 +196,8 @@ INSERT INTO `suppliers` (`id`, `supplier_name`, `supplier_location`, `email`, `c
 -- Indexes for table `productdb`
 --
 ALTER TABLE `productdb`
-  ADD PRIMARY KEY (`ProductID`);
+  ADD PRIMARY KEY (`ProductID`),
+  ADD KEY `created_by` (`created_by`);
 
 --
 -- Indexes for table `productsuppliers`
@@ -171,6 +206,21 @@ ALTER TABLE `productsuppliers`
   ADD PRIMARY KEY (`id`),
   ADD KEY `product` (`product`),
   ADD KEY `supplier` (`supplier`);
+
+--
+-- Indexes for table `product_supplier`
+--
+ALTER TABLE `product_supplier`
+  ADD KEY `product_supplier_ibfk_1` (`supplier`),
+  ADD KEY `product_supplier_ibfk_2` (`product`),
+  ADD KEY `product_supplier_ibfk_3` (`created_by`);
+
+--
+-- Indexes for table `stocks`
+--
+ALTER TABLE `stocks`
+  ADD KEY `stocks_ibfk_1` (`created_by`),
+  ADD KEY `stocks_ibfk_2` (`product_id`);
 
 --
 -- Indexes for table `suppliers`
@@ -241,6 +291,27 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `productdb`
+--
+ALTER TABLE `productdb`
+  ADD CONSTRAINT `productdb_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `tbempinfo` (`empid`);
+
+--
+-- Constraints for table `product_supplier`
+--
+ALTER TABLE `product_supplier`
+  ADD CONSTRAINT `product_supplier_ibfk_1` FOREIGN KEY (`supplier`) REFERENCES `suppliers` (`id`),
+  ADD CONSTRAINT `product_supplier_ibfk_2` FOREIGN KEY (`product`) REFERENCES `productdb` (`ProductID`),
+  ADD CONSTRAINT `product_supplier_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
+
+--
+-- Constraints for table `stocks`
+--
+ALTER TABLE `stocks`
+  ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
+  ADD CONSTRAINT `stocks_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `productdb` (`ProductID`);
 
 --
 -- Constraints for table `users`
