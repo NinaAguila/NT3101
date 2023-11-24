@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 02:01 AM
+-- Generation Time: Nov 24, 2023 at 03:59 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_nt3101`
+-- Database: `finaldb3`
 --
 
 -- --------------------------------------------------------
@@ -55,27 +55,16 @@ CREATE TABLE `reservations` (
   `department_id` int(11) DEFAULT NULL,
   `start_time` datetime DEFAULT NULL,
   `end_time` datetime DEFAULT NULL,
-  `status` varchar(50) DEFAULT NULL
+  `status` varchar(50) DEFAULT NULL,
+  `adminid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `reservations`
 --
 
-INSERT INTO `reservations` (`reservation_id`, `empid`, `studid`, `venue_id`, `department_id`, `start_time`, `end_time`, `status`) VALUES
-(1, NULL, 1, 1, 3, '2023-11-24 08:55:18', '2023-11-25 08:55:18', 'pending'),
-(2, 1, NULL, 2, 3, '2023-11-24 08:59:56', '2023-11-24 08:59:56', 'pending');
-
---
--- Triggers `reservations`
---
-DELIMITER $$
-CREATE TRIGGER `before_insert_reservation` BEFORE INSERT ON `reservations` FOR EACH ROW BEGIN
-    -- Set the status as pending for new reservations
-    SET NEW.status = 'pending';
-END
-$$
-DELIMITER ;
+INSERT INTO `reservations` (`reservation_id`, `empid`, `studid`, `venue_id`, `department_id`, `start_time`, `end_time`, `status`, `adminid`) VALUES
+(1, NULL, 1, 1, 3, '2023-11-24 08:55:18', '2023-11-25 08:55:18', 'Pending', 1);
 
 -- --------------------------------------------------------
 
@@ -149,6 +138,27 @@ INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `tb_admin`
+--
+
+CREATE TABLE `tb_admin` (
+  `adminid` int(11) NOT NULL,
+  `empid` int(11) NOT NULL,
+  `full_name` varchar(100) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_admin`
+--
+
+INSERT INTO `tb_admin` (`adminid`, `empid`, `full_name`, `email`, `password`) VALUES
+(1, 1, 'prince', 'prince@gmail', '123');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tb_roles`
 --
 
@@ -204,7 +214,8 @@ ALTER TABLE `reservations`
   ADD KEY `fk_reservations_emp` (`empid`),
   ADD KEY `fk_reservations_stud` (`studid`),
   ADD KEY `fk_reservations_department` (`department_id`),
-  ADD KEY `fk_reservations_venue` (`venue_id`);
+  ADD KEY `fk_reservations_venue` (`venue_id`),
+  ADD KEY `fk_reservations_admin` (`adminid`);
 
 --
 -- Indexes for table `tbempinfo`
@@ -236,6 +247,13 @@ ALTER TABLE `tbstudinfo`
   ADD PRIMARY KEY (`studid`);
 
 --
+-- Indexes for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD PRIMARY KEY (`adminid`),
+  ADD KEY `empid` (`empid`);
+
+--
 -- Indexes for table `tb_roles`
 --
 ALTER TABLE `tb_roles`
@@ -262,7 +280,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
-  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tbempinfo`
@@ -289,6 +307,12 @@ ALTER TABLE `tbstudinfo`
   MODIFY `studid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  MODIFY `adminid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `tb_roles`
 --
 ALTER TABLE `tb_roles`
@@ -308,6 +332,7 @@ ALTER TABLE `venues`
 -- Constraints for table `reservations`
 --
 ALTER TABLE `reservations`
+  ADD CONSTRAINT `fk_reservations_admin` FOREIGN KEY (`adminid`) REFERENCES `tb_admin` (`adminid`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reservations_department` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reservations_emp` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_reservations_stud` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE SET NULL ON UPDATE CASCADE,
@@ -327,6 +352,24 @@ ALTER TABLE `tbemp_acc`
 ALTER TABLE `tbstudent_acc`
   ADD CONSTRAINT `fk_department_student` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_studinfo_changes` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tb_admin`
+--
+ALTER TABLE `tb_admin`
+  ADD CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+--
+-- Events
+--
+CREATE DEFINER=`root`@`localhost` EVENT `update_event_status` ON SCHEDULE EVERY 1 SECOND STARTS '2023-11-24 08:50:18' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
+    UPDATE tb_event SET status = 'upcoming' WHERE event_date > CURRENT_TIMESTAMP;
+    UPDATE tb_event SET status = 'ongoing' WHERE DATE(event_date) = CURDATE();
+    UPDATE tb_event SET status = 'ended' WHERE event_date < CURRENT_TIMESTAMP;
+END$$
+
+DELIMITER ;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
