@@ -140,10 +140,10 @@ CREATE TABLE IF NOT EXISTS `tbstudacc` (
 --
 
 INSERT INTO `tbstudacc` (`accountid`, `username`, `password`, `SRcode`) VALUES
-(3, 'Jerome', 'student123', '21-30452'),
-(4, 'Max', 'student101', '21-35348'),
-(5, 'Neil', 'nt3101', '21-37635'),
-(6, 'Dom', 'kumarecakes01', '21-33878');
+(1, 'Jerome', 'student123', '21-30452'),
+(2, 'Max', 'student101', '21-35348'),
+(3, 'Neil', 'nt3101', '21-37635'),
+(4, 'Dom', 'kumarecakes01', '21-33878');
 
 -- --------------------------------------------------------
 
@@ -164,11 +164,11 @@ CREATE TABLE IF NOT EXISTS `tbstudinfo` (
 -- Dumping data for table `tbstudinfo`
 --
 
-INSERT INTO `tbstudinfo` (`SRcode`, `lastname`, `firstname`, `course`) VALUES
-('21-30452', 'Panganiban', 'Jerome', 'BSIT-NT'),
-('21-35348', 'De Silva', 'Max Daniel', 'BSIT-NT'),
-('21-37635', 'Pamintuan', 'Neil Daniel', 'BSIT-NT'),
-('21-33878', 'Cabangisan', 'Dominic', 'BSIT');
+INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
+('1', 'Panganiban', 'Jerome', 'BSIT-NT'),
+('2', 'De Silva', 'Max Daniel', 'BSIT-NT'),
+('3', 'Pamintuan', 'Neil Daniel', 'BSIT-NT'),
+('4', 'Cabangisan', 'Dominic', 'BSIT');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
