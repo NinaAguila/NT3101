@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1:3306
--- Generation Time: Oct 27, 2023 at 01:23 AM
--- Server version: 8.0.31
--- PHP Version: 8.0.26
+-- Host: 127.0.0.1
+-- Generation Time: Nov 24, 2023 at 02:01 AM
+-- Server version: 10.4.27-MariaDB
+-- PHP Version: 8.2.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,132 +24,309 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_admin`
+-- Table structure for table `departments`
 --
 
-DROP TABLE IF EXISTS `tb_admin`;
-CREATE TABLE IF NOT EXISTS `tb_admin` (
-  `username` varchar(100) NOT NULL,
-  `password` varchar(100) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `departments` (
+  `department_id` int(11) NOT NULL,
+  `department_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tb_admin`
+-- Dumping data for table `departments`
 --
 
-INSERT INTO `tb_admin` (`username`, `password`) VALUES
-('admin', 'admin');
+INSERT INTO `departments` (`department_id`, `department_name`) VALUES
+(1, 'CAS'),
+(2, 'CABE'),
+(3, 'CICS');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_department`
+-- Table structure for table `reservations`
 --
 
-DROP TABLE IF EXISTS `tb_department`;
-CREATE TABLE IF NOT EXISTS `tb_department` (
-  `Department ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Department` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  PRIMARY KEY (`Department ID`)
+CREATE TABLE `reservations` (
+  `reservation_id` int(11) NOT NULL,
+  `empid` int(11) DEFAULT NULL,
+  `studid` int(11) DEFAULT NULL,
+  `venue_id` int(11) DEFAULT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `start_time` datetime DEFAULT NULL,
+  `end_time` datetime DEFAULT NULL,
+  `status` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tb_department`
+-- Dumping data for table `reservations`
 --
 
-INSERT INTO `tb_department` (`Department ID`, `Department`) VALUES
-('1', 'CICS'),
-('2', 'CAS'),
-('3', 'CABE'),
-('4', 'CIT'),
-('5', 'STAFF');
+INSERT INTO `reservations` (`reservation_id`, `empid`, `studid`, `venue_id`, `department_id`, `start_time`, `end_time`, `status`) VALUES
+(1, NULL, 1, 1, 3, '2023-11-24 08:55:18', '2023-11-25 08:55:18', 'pending'),
+(2, 1, NULL, 2, 3, '2023-11-24 08:59:56', '2023-11-24 08:59:56', 'pending');
+
+--
+-- Triggers `reservations`
+--
+DELIMITER $$
+CREATE TRIGGER `before_insert_reservation` BEFORE INSERT ON `reservations` FOR EACH ROW BEGIN
+    -- Set the status as pending for new reservations
+    SET NEW.status = 'pending';
+END
+$$
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_main`
+-- Table structure for table `tbempinfo`
 --
 
-DROP TABLE IF EXISTS `tb_main`;
-CREATE TABLE IF NOT EXISTS `tb_main` (
-  `Reserve number` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Department ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Venue ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Teacher's Sr-Code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Student's Sr-Code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Date and Time` datetime(6) NOT NULL,
-  PRIMARY KEY (`Department ID`)
+CREATE TABLE `tbempinfo` (
+  `empid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `department` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tb_main`
+-- Dumping data for table `tbempinfo`
 --
 
-INSERT INTO `tb_main` (`Reserve number`, `Department ID`, `Venue ID`, `Teacher's Sr-Code`, `Student's Sr-Code`, `Date and Time`) VALUES
-('1', '1', '1', 'null', '21-30079', '2023-10-12 08:50:02.000000'),
-('2', '2', '2', '21-13131', 'null', '2023-10-16 08:50:19.000000');
+INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
+(1, 'Aguila', 'Nina', 'CICS');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_student`
+-- Table structure for table `tbemp_acc`
 --
 
-DROP TABLE IF EXISTS `tb_student`;
-CREATE TABLE IF NOT EXISTS `tb_student` (
-  `Student's Sr-Code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Department` varchar(40) COLLATE utf8mb4_general_ci NOT NULL
+CREATE TABLE `tbemp_acc` (
+  `empaccountId` int(11) NOT NULL,
+  `empid` int(11) NOT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `role_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tb_student`
---
-
-INSERT INTO `tb_student` (`Student's Sr-Code`, `Name`, `Department`) VALUES
-('21-30079', 'Prince', '1');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_teacher`
+-- Table structure for table `tbstudent_acc`
 --
 
-DROP TABLE IF EXISTS `tb_teacher`;
-CREATE TABLE IF NOT EXISTS `tb_teacher` (
-  `Teacher's Sr-code` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Name` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Department` varchar(40) COLLATE utf8mb4_general_ci NOT NULL
+CREATE TABLE `tbstudent_acc` (
+  `studacc_id` int(11) NOT NULL,
+  `studid` int(11) NOT NULL,
+  `department_id` int(11) DEFAULT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tb_teacher`
---
-
-INSERT INTO `tb_teacher` (`Teacher's Sr-code`, `Name`, `Department`) VALUES
-('21-13131', 'Ryndel', '5');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tb_venue`
+-- Table structure for table `tbstudinfo`
 --
 
-DROP TABLE IF EXISTS `tb_venue`;
-CREATE TABLE IF NOT EXISTS `tb_venue` (
-  `Venue ID` varchar(40) COLLATE utf8mb4_general_ci NOT NULL,
-  `Venue` varchar(40) COLLATE utf8mb4_general_ci NOT NULL
+CREATE TABLE `tbstudinfo` (
+  `studid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `course` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tb_venue`
+-- Dumping data for table `tbstudinfo`
 --
 
-INSERT INTO `tb_venue` (`Venue ID`, `Venue`) VALUES
-('1', 'Field'),
-('2', 'Multi Media Room'),
-('3', 'BSU Gym'),
-('3', 'HEB 5th Floor Room');
+INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
+(1, 'Mago', 'Prince', 'it');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tb_roles`
+--
+
+CREATE TABLE `tb_roles` (
+  `role_id` int(11) NOT NULL,
+  `role_name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tb_roles`
+--
+
+INSERT INTO `tb_roles` (`role_id`, `role_name`) VALUES
+(1, 'Admin'),
+(2, 'Teacher');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `venues`
+--
+
+CREATE TABLE `venues` (
+  `venue_id` int(11) NOT NULL,
+  `venue_name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `venues`
+--
+
+INSERT INTO `venues` (`venue_id`, `venue_name`) VALUES
+(1, '5th Floor Heb Room'),
+(2, 'Field'),
+(3, 'Gym'),
+(4, 'Multi Media Room');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `departments`
+--
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`department_id`);
+
+--
+-- Indexes for table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD PRIMARY KEY (`reservation_id`),
+  ADD KEY `fk_reservations_emp` (`empid`),
+  ADD KEY `fk_reservations_stud` (`studid`),
+  ADD KEY `fk_reservations_department` (`department_id`),
+  ADD KEY `fk_reservations_venue` (`venue_id`);
+
+--
+-- Indexes for table `tbempinfo`
+--
+ALTER TABLE `tbempinfo`
+  ADD PRIMARY KEY (`empid`);
+
+--
+-- Indexes for table `tbemp_acc`
+--
+ALTER TABLE `tbemp_acc`
+  ADD PRIMARY KEY (`empaccountId`),
+  ADD KEY `fk_empinfo_changes` (`empid`),
+  ADD KEY `fk_department_emp` (`department_id`),
+  ADD KEY `fk_emp_roles` (`role_id`);
+
+--
+-- Indexes for table `tbstudent_acc`
+--
+ALTER TABLE `tbstudent_acc`
+  ADD PRIMARY KEY (`studacc_id`),
+  ADD KEY `fk_studinfo_changes` (`studid`),
+  ADD KEY `fk_department_student` (`department_id`);
+
+--
+-- Indexes for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  ADD PRIMARY KEY (`studid`);
+
+--
+-- Indexes for table `tb_roles`
+--
+ALTER TABLE `tb_roles`
+  ADD PRIMARY KEY (`role_id`),
+  ADD UNIQUE KEY `unique_role_name` (`role_name`);
+
+--
+-- Indexes for table `venues`
+--
+ALTER TABLE `venues`
+  ADD PRIMARY KEY (`venue_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `departments`
+--
+ALTER TABLE `departments`
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `reservations`
+--
+ALTER TABLE `reservations`
+  MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `tbempinfo`
+--
+ALTER TABLE `tbempinfo`
+  MODIFY `empid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbemp_acc`
+--
+ALTER TABLE `tbemp_acc`
+  MODIFY `empaccountId` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbstudent_acc`
+--
+ALTER TABLE `tbstudent_acc`
+  MODIFY `studacc_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  MODIFY `studid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tb_roles`
+--
+ALTER TABLE `tb_roles`
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `venues`
+--
+ALTER TABLE `venues`
+  MODIFY `venue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `reservations`
+--
+ALTER TABLE `reservations`
+  ADD CONSTRAINT `fk_reservations_department` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_reservations_emp` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_reservations_stud` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_reservations_venue` FOREIGN KEY (`venue_id`) REFERENCES `venues` (`venue_id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbemp_acc`
+--
+ALTER TABLE `tbemp_acc`
+  ADD CONSTRAINT `fk_department_emp` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_emp_roles` FOREIGN KEY (`role_id`) REFERENCES `tb_roles` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_empinfo_changes` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tbstudent_acc`
+--
+ALTER TABLE `tbstudent_acc`
+  ADD CONSTRAINT `fk_department_student` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `fk_studinfo_changes` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
