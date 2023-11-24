@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 03:25 AM
+-- Generation Time: Nov 24, 2023 at 03:38 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `productdb` (
-  `ProductID` int(100) NOT NULL,
+  `id` int(100) NOT NULL,
   `ProductName` varchar(255) NOT NULL,
   `created_by` int(11) NOT NULL,
   `Price` varchar(255) NOT NULL,
@@ -39,9 +39,8 @@ CREATE TABLE `productdb` (
 -- Dumping data for table `productdb`
 --
 
-INSERT INTO `productdb` (`ProductID`, `ProductName`, `created_by`, `Price`, `image`) VALUES
-(64, 'Organizational Shrit', 1, '550', 'product-1700743519.png'),
-(65, 'Department shirt', 1, '550', 'product-1700751825.png');
+INSERT INTO `productdb` (`id`, `ProductName`, `created_by`, `Price`, `image`) VALUES
+(64, 'Organizational Shrit', 1, '550', 'product-1700743519.png');
 
 -- --------------------------------------------------------
 
@@ -196,7 +195,7 @@ INSERT INTO `users` (`id`, `email`, `password`, `created_at`, `updated_at`, `emp
 -- Indexes for table `productdb`
 --
 ALTER TABLE `productdb`
-  ADD PRIMARY KEY (`ProductID`),
+  ADD PRIMARY KEY (`id`),
   ADD KEY `created_by` (`created_by`);
 
 --
@@ -256,7 +255,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `productdb`
 --
 ALTER TABLE `productdb`
-  MODIFY `ProductID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `productsuppliers`
@@ -303,7 +302,7 @@ ALTER TABLE `productdb`
 --
 ALTER TABLE `product_supplier`
   ADD CONSTRAINT `product_supplier_ibfk_1` FOREIGN KEY (`supplier`) REFERENCES `suppliers` (`id`),
-  ADD CONSTRAINT `product_supplier_ibfk_2` FOREIGN KEY (`product`) REFERENCES `productdb` (`ProductID`),
+  ADD CONSTRAINT `product_supplier_ibfk_2` FOREIGN KEY (`product`) REFERENCES `productdb` (`id`),
   ADD CONSTRAINT `product_supplier_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`);
 
 --
@@ -311,7 +310,7 @@ ALTER TABLE `product_supplier`
 --
 ALTER TABLE `stocks`
   ADD CONSTRAINT `stocks_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`),
-  ADD CONSTRAINT `stocks_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `productdb` (`ProductID`);
+  ADD CONSTRAINT `stocks_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `productdb` (`id`);
 
 --
 -- Constraints for table `users`
