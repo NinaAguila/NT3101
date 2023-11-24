@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Nov 24, 2023 at 03:09 AM
+-- Generation Time: Nov 24, 2023 at 03:49 AM
 -- Server version: 8.0.31
 -- PHP Version: 8.0.26
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `neww`
+-- Database: `db_nt3101`
 --
 
 -- --------------------------------------------------------
@@ -38,6 +38,36 @@ CREATE TABLE IF NOT EXISTS `booktable` (
   PRIMARY KEY (`BookID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+--
+-- Dumping data for table `booktable`
+--
+
+INSERT INTO `booktable` (`BookID`, `Author`, `BookNames`, `Description`, `Category`, `ISBN`) VALUES
+(10, 'William Adams', 'Fantasy Realm', 'Immerse yourself in a world of fantasy', 'Fantasy', '5544332211'),
+(9, 'Olivia Davis', 'Business Strategies', 'Navigating the corporate world', 'Business', '1122334455'),
+(7, 'Sophia Taylor', 'Travel Chronicles', 'Journeying through diverse landscapes', 'Travel', '9012345678'),
+(8, 'Daniel Miller', 'Poetry Collection', 'Verses that touch the soul', 'Poetry', '4567890123'),
+(6, 'Michael Lee', 'Science Wonders', 'Unraveling the secrets of the universe', 'Science', '2345678901'),
+(5, 'Emily White', 'Artistic Expressions', 'Discovering the world of art', 'Art', '7890123456'),
+(4, 'Bob Brown', 'History Uncovered', 'Exploring the mysteries of the past', 'History', '3456789012'),
+(3, 'Alice Johnson', 'Cooking Delights', 'Recipes for delicious meals', 'Cooking', '5678901234'),
+(1, 'John Doe', 'The Great Novel', 'An exciting novel about adventure', 'Fiction', '1234567890'),
+(2, 'Jane Smith', 'Programming Basics', 'A guide to programming for beginners', 'Non-Fiction', '9876543210');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `emplogin`
+--
+
+DROP TABLE IF EXISTS `emplogin`;
+CREATE TABLE IF NOT EXISTS `emplogin` (
+  `EmployeeID` int NOT NULL AUTO_INCREMENT,
+  `empid` int NOT NULL,
+  `password` varchar(255) NOT NULL,
+  PRIMARY KEY (`EmployeeID`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
 -- --------------------------------------------------------
 
 --
@@ -48,7 +78,6 @@ DROP TABLE IF EXISTS `logintable`;
 CREATE TABLE IF NOT EXISTS `logintable` (
   `UserID` int NOT NULL AUTO_INCREMENT,
   `studid` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
-  `empid` int NOT NULL,
   `Password` varchar(255) NOT NULL,
   PRIMARY KEY (`UserID`)
 ) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
