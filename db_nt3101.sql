@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 02:12 AM
+-- Generation Time: Nov 24, 2023 at 04:54 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 7.4.30
 
@@ -32,6 +32,13 @@ CREATE TABLE `admindb` (
   `empid` int(11) NOT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `admindb`
+--
+
+INSERT INTO `admindb` (`adminID`, `empid`, `password`) VALUES
+('admin', 1, 'admin');
 
 -- --------------------------------------------------------
 
@@ -120,13 +127,60 @@ CREATE TABLE `shopcart` (
 --
 
 CREATE TABLE `student_record` (
-  `studid` int(11) NOT NULL,
+  `studid` int(10) NOT NULL,
   `SR_Code` varchar(100) NOT NULL,
   `pass` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
-  `dept` varchar(255) NOT NULL,
   `cnum` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `student_record`
+--
+
+INSERT INTO `student_record` (`studid`, `SR_Code`, `pass`, `email`, `cnum`) VALUES
+(1, '21-30169', 'Pol', '21-30169@g.batstate-u.edu.ph', '0909054532');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbempinfo`
+--
+
+CREATE TABLE `tbempinfo` (
+  `empid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `department` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbempinfo`
+--
+
+INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
+(1, 'aguila', 'nina', 'cics');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbstudinfo`
+--
+
+CREATE TABLE `tbstudinfo` (
+  `studid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `course` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tbstudinfo`
+--
+
+INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
+(1, 'parker', 'peter', 'bsit'),
+(2, 'kent', 'clark', 'bscs');
 
 --
 -- Indexes for dumped tables
@@ -176,8 +230,19 @@ ALTER TABLE `shopcart`
 -- Indexes for table `student_record`
 --
 ALTER TABLE `student_record`
-  ADD PRIMARY KEY (`SR_Code`),
-  ADD KEY `studid` (`studid`);
+  ADD PRIMARY KEY (`SR_Code`);
+
+--
+-- Indexes for table `tbempinfo`
+--
+ALTER TABLE `tbempinfo`
+  ADD PRIMARY KEY (`empid`);
+
+--
+-- Indexes for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  ADD PRIMARY KEY (`studid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -212,6 +277,18 @@ ALTER TABLE `productdb`
 --
 ALTER TABLE `shopcart`
   MODIFY `CartID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `tbempinfo`
+--
+ALTER TABLE `tbempinfo`
+  MODIFY `empid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  MODIFY `studid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
