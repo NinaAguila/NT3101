@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 27, 2023 at 06:00 AM
+-- Generation Time: Nov 29, 2023 at 09:09 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -20,6 +20,65 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_nt3101`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `candidates`
+--
+
+CREATE TABLE `candidates` (
+  `studid` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `firstname` varchar(255) NOT NULL,
+  `course` varchar(255) NOT NULL,
+  `yearlevel` varchar(255) NOT NULL,
+  `position` varchar(255) NOT NULL,
+  `image` blob NOT NULL,
+  `numofVote` varchar(255) NOT NULL,
+  `information` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `candidates`
+--
+
+INSERT INTO `candidates` (`studid`, `lastname`, `firstname`, `course`, `yearlevel`, `position`, `image`, `numofVote`, `information`) VALUES
+('1', 'parkers', 'peters', 'CAS', '1', 'President', 0x75706c6f6164732f312e706e67, '1', 'asdasd1asdasd1asdasd1asdasd1asdasd1asdasd1asdasd1fds'),
+('2', 'kents', 'clarks', 'CICS', '33', 'Vice President', 0x75706c6f6164732f70726f66696c65322e6a666966, '0', 'asdfasdf'),
+('21-001', 'man', 'spider', 'CABE', '3', 'President', '', '1', 'asdfsadf'),
+('21-002', 'stacy', 'gwen', 'CABE', '2', 'Vice President', '', '0', 'asdf'),
+('21-003', 'carandang', 'lander gray', 'CICS', '3', 'Vice President', '', '0', 'asdf'),
+('21-004', 'tatakbo', 'tatalon', 'CABE', '1', 'Secretary', '', '0', 'asdf'),
+('21-005', 'para sa ', 'bayan', 'CABE', '3', 'Peace Officer', '', '0', 'sadf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbempinfo`
+--
+
+CREATE TABLE `tbempinfo` (
+  `empid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `department` varchar(20) NOT NULL,
+  `password` varchar(25) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbempinfo`
+--
+
+INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`, `password`) VALUES
+(1, 'aguila', 'nina', 'cics', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tbstudinfo`
+--
+
 CREATE TABLE `tbstudinfo` (
   `studid` varchar(25) NOT NULL,
   `lastname` varchar(25) NOT NULL,
@@ -53,35 +112,22 @@ INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`, `yearleve
 --
 
 --
--- Indexes for table `tbstudinfo`
+-- Indexes for table `candidates`
 --
-ALTER TABLE `tbstudinfo`
+ALTER TABLE `candidates`
   ADD PRIMARY KEY (`studid`);
-COMMIT;
-CREATE TABLE `tbempinfo` (
-  `empid` int(11) NOT NULL,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `department` varchar(20) NOT NULL,
-  `password` varchar(25) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbempinfo`
---
-
-INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`, `password`) VALUES
-(1, 'aguila', 'nina', 'cics', '');
-
---
--- Indexes for dumped tables
---
 
 --
 -- Indexes for table `tbempinfo`
 --
 ALTER TABLE `tbempinfo`
   ADD PRIMARY KEY (`empid`);
+
+--
+-- Indexes for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  ADD PRIMARY KEY (`studid`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -94,40 +140,6 @@ ALTER TABLE `tbempinfo`
   MODIFY `empid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
-CREATE TABLE `candidates` (
-  `studid` varchar(255) NOT NULL,
-  `lastname` varchar(255) NOT NULL,
-  `firstname` varchar(255) NOT NULL,
-  `course` varchar(255) NOT NULL,
-  `yearlevel` varchar(255) NOT NULL,
-  `position` varchar(255) NOT NULL,
-  `image` blob NOT NULL,
-  `numofVote` varchar(255) NOT NULL,
-  `information` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `candidates`
---
-
-INSERT INTO `candidates` (`studid`, `lastname`, `firstname`, `course`, `yearlevel`, `position`, `image`, `numofVote`, `information`) VALUES
-('1', 'parkers', 'peters', 'CAS', '1', 'President', 0x75706c6f6164732f312e706e67, '1', 'asdasd1asdasd1asdasd1asdasd1asdasd1asdasd1asdasd1fds'),
-('2', 'kents', 'clarks', 'CICS', '33', 'Vice President', 0x75706c6f6164732f70726f66696c65322e6a666966, '0', 'asdfasdf'),
-('21-001', 'man', 'spider', 'CABE', '3', 'President', '', '1', 'asdfsadf'),
-('21-002', 'stacy', 'gwen', 'CABE', '2', 'Vice President', '', '0', 'asdf'),
-('21-003', 'carandang', 'lander gray', 'CICS', '3', 'Vice President', '', '0', 'asdf'),
-('21-004', 'tatakbo', 'tatalon', 'CABE', '1', 'Secretary', '', '0', 'asdf'),
-('21-005', 'para sa ', 'bayan', 'CABE', '3', 'Peace Officer', '', '0', 'sadf');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `candidates`
---
-ALTER TABLE `candidates`
-  ADD PRIMARY KEY (`studid`);
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
