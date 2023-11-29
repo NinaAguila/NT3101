@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2023 at 09:09 AM
+-- Generation Time: Nov 29, 2023 at 12:08 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 7.4.33
 
@@ -20,12 +20,83 @@ SET time_zone = "+00:00";
 --
 -- Database: `db_nt3101`
 --
+CREATE TABLE `tbempinfo` (
+  `empid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `department` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tbempinfo`
+--
+
+INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`) VALUES
+(1, 'aguila', 'nina', 'cics');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbempinfo`
+--
+ALTER TABLE `tbempinfo`
+  ADD PRIMARY KEY (`empid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbempinfo`
+--
+ALTER TABLE `tbempinfo`
+  MODIFY `empid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
 -- --------------------------------------------------------
 
 --
--- Table structure for table `candidates`
+-- Table structure for table `tbstudinfo`
 --
+
+CREATE TABLE `tbstudinfo` (
+  `studid` int(11) NOT NULL,
+  `lastname` varchar(25) NOT NULL,
+  `firstname` varchar(25) NOT NULL,
+  `course` varchar(20) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbstudinfo`
+--
+
+INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
+(1, 'parker', 'peter', 'BSIT'),
+(2, 'kent', 'clark', 'bscs');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  ADD PRIMARY KEY (`studid`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `tbstudinfo`
+--
+ALTER TABLE `tbstudinfo`
+  MODIFY `studid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+COMMIT;
+
+
 
 CREATE TABLE `candidates` (
   `studid` varchar(255) NOT NULL,
@@ -44,102 +115,39 @@ CREATE TABLE `candidates` (
 --
 
 INSERT INTO `candidates` (`studid`, `lastname`, `firstname`, `course`, `yearlevel`, `position`, `image`, `numofVote`, `information`) VALUES
-('1', 'parkers', 'peters', 'CAS', '1', 'President', 0x75706c6f6164732f312e706e67, '1', 'asdasd1asdasd1asdasd1asdasd1asdasd1asdasd1asdasd1fds'),
-('2', 'kents', 'clarks', 'CICS', '33', 'Vice President', 0x75706c6f6164732f70726f66696c65322e6a666966, '0', 'asdfasdf'),
-('21-001', 'man', 'spider', 'CABE', '3', 'President', '', '1', 'asdfsadf'),
-('21-002', 'stacy', 'gwen', 'CABE', '2', 'Vice President', '', '0', 'asdf'),
-('21-003', 'carandang', 'lander gray', 'CICS', '3', 'Vice President', '', '0', 'asdf'),
-('21-004', 'tatakbo', 'tatalon', 'CABE', '1', 'Secretary', '', '0', 'asdf'),
-('21-005', 'para sa ', 'bayan', 'CABE', '3', 'Peace Officer', '', '0', 'sadf');
+('1', 'parkers', 'peters', 'CETE', '4', 'Peace Officer', 0x75706c6f6164732f70726f66696c65312e6a7067, '2', 'asdf'),
+('2', 'kent', 'clark', 'CETE', '', 'Peace Officer', 0x70726f66696c65322e6a666966, '2', 'sadf');
+COMMIT;
 
--- --------------------------------------------------------
 
---
--- Table structure for table `tbempinfo`
---
-
-CREATE TABLE `tbempinfo` (
-  `empid` int(11) NOT NULL,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `department` varchar(20) NOT NULL,
-  `password` varchar(25) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tbempinfo`
---
-
-INSERT INTO `tbempinfo` (`empid`, `lastname`, `firstname`, `department`, `password`) VALUES
-(1, 'aguila', 'nina', 'cics', '');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `tbstudinfo`
---
-
-CREATE TABLE `tbstudinfo` (
+CREATE TABLE `votersinfo` (
   `studid` varchar(25) NOT NULL,
-  `lastname` varchar(25) NOT NULL,
-  `firstname` varchar(25) NOT NULL,
-  `course` varchar(20) NOT NULL,
   `yearlevel` varchar(255) NOT NULL,
   `Password` varchar(255) NOT NULL,
-  `hasVotedPresident` tinyint(1) DEFAULT 0,
-  `hasVotedVicePresident` tinyint(1) DEFAULT 0,
-  `hasVotedSecretary` tinyint(1) DEFAULT 0,
-  `hasVotedPeaceOfficer` tinyint(1) DEFAULT 0
+  `hasVotedPresident` int(11) DEFAULT 0,
+  `hasVotedVicePresident` int(11) DEFAULT 0,
+  `hasVotedSecretary` int(11) DEFAULT 0,
+  `hasVotedPeaceOfficer` int(11) DEFAULT 0
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `tbstudinfo`
+-- Dumping data for table `votersinfo`
 --
 
-INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`, `yearlevel`, `Password`, `hasVotedPresident`, `hasVotedVicePresident`, `hasVotedSecretary`, `hasVotedPeaceOfficer`) VALUES
-('1', 'parker', 'peter', 'bsit', '4', 'user', 1, 0, 0, 0),
-('2', 'kent', 'clark', 'bscs', '3', 'user', 0, 0, 0, 0),
-('21-001', 'man', 'spider', 'cabe', '3', 'user', 0, 1, 0, 0),
-('21-002', 'stacy', 'gwen', 'cabe', '2', 'user', 0, 0, 0, 0),
-('21-003', 'carandang', 'lander gray', 'cabe', '3', 'user', 0, 0, 0, 0),
-('21-004', 'tatakbo', 'tatalon', 'cabe', '1', 'user', 0, 0, 0, 0),
-('21-005', 'para sa ', 'bayan', 'cabe', '3', 'user', 0, 0, 0, 0),
-('21-006', 'ako din para', 'sa bayan', 'cabe', '3', 'user', 0, 0, 0, 0),
-('21-007', 'para sa ', 'bayan', 'cabe', '3', 'user', 0, 0, 0, 0);
+INSERT INTO `votersinfo` (`studid`, `yearlevel`, `Password`, `hasVotedPresident`, `hasVotedVicePresident`, `hasVotedSecretary`, `hasVotedPeaceOfficer`) VALUES
+('1', '4', 'user', 0, 0, 0, 0),
+('2', '3', 'user', 0, 0, 0, 0);
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `candidates`
+-- Indexes for table `votersinfo`
 --
-ALTER TABLE `candidates`
+ALTER TABLE `votersinfo`
   ADD PRIMARY KEY (`studid`);
-
---
--- Indexes for table `tbempinfo`
---
-ALTER TABLE `tbempinfo`
-  ADD PRIMARY KEY (`empid`);
-
---
--- Indexes for table `tbstudinfo`
---
-ALTER TABLE `tbstudinfo`
-  ADD PRIMARY KEY (`studid`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `tbempinfo`
---
-ALTER TABLE `tbempinfo`
-  MODIFY `empid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
-
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
