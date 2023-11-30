@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 24, 2023 at 03:59 AM
+-- Generation Time: Nov 30, 2023 at 05:09 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `finaldb3`
+-- Database: `db_nt3101`
 --
 
 -- --------------------------------------------------------
@@ -37,9 +37,73 @@ CREATE TABLE `departments` (
 --
 
 INSERT INTO `departments` (`department_id`, `department_name`) VALUES
-(1, 'CAS'),
+(1, 'CICS'),
 (2, 'CABE'),
-(3, 'CICS');
+(3, 'CAS'),
+(4, 'CIT');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_product_history`
+--
+
+CREATE TABLE `order_product_history` (
+  `id` int(11) NOT NULL,
+  `order_product_id` int(11) NOT NULL,
+  `qty_received` int(11) NOT NULL,
+  `date_received` datetime NOT NULL,
+  `date_updated` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(100) NOT NULL,
+  `ProductName` varchar(255) NOT NULL,
+  `adminId` int(11) NOT NULL,
+  `Price` varchar(255) NOT NULL,
+  `image` varchar(255) NOT NULL,
+  `stock` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `productsuppliers`
+--
+
+CREATE TABLE `productsuppliers` (
+  `id` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `product` int(11) NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `product_in`
+--
+
+CREATE TABLE `product_in` (
+  `id` int(11) NOT NULL,
+  `supplier` int(11) NOT NULL,
+  `product` int(11) NOT NULL,
+  `quantity_ordered` int(11) NOT NULL,
+  `quantity_received` int(11) NOT NULL,
+  `quantity_remaining` int(11) NOT NULL,
+  `status` varchar(20) NOT NULL,
+  `batch` varchar(200) NOT NULL,
+  `adminId` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -59,12 +123,30 @@ CREATE TABLE `reservations` (
   `adminid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `reservations`
+-- Table structure for table `reserved_ids`
 --
 
-INSERT INTO `reservations` (`reservation_id`, `empid`, `studid`, `venue_id`, `department_id`, `start_time`, `end_time`, `status`, `adminid`) VALUES
-(1, NULL, 1, 1, 3, '2023-11-24 08:55:18', '2023-11-25 08:55:18', 'Pending', 1);
+CREATE TABLE `reserved_ids` (
+  `id` int(11) NOT NULL,
+  `reservation_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `suppliers`
+--
+
+CREATE TABLE `suppliers` (
+  `id` int(11) NOT NULL,
+  `supplier_name` varchar(191) NOT NULL,
+  `supplier_location` varchar(191) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `adminId` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -133,7 +215,7 @@ CREATE TABLE `tbstudinfo` (
 --
 
 INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
-(1, 'Mago', 'Prince', 'it');
+(1, 'final', 'sample', 'BSIT');
 
 -- --------------------------------------------------------
 
@@ -154,7 +236,7 @@ CREATE TABLE `tb_admin` (
 --
 
 INSERT INTO `tb_admin` (`adminid`, `empid`, `full_name`, `email`, `password`) VALUES
-(1, 1, 'prince', 'prince@gmail', '123');
+(1, 0, 'Prince Mago', 'Prine@gmail.com', '123');
 
 -- --------------------------------------------------------
 
@@ -167,13 +249,20 @@ CREATE TABLE `tb_roles` (
   `role_name` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `tb_roles`
+-- Table structure for table `users`
 --
 
-INSERT INTO `tb_roles` (`role_id`, `role_name`) VALUES
-(1, 'Admin'),
-(2, 'Teacher');
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `emp` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -191,10 +280,7 @@ CREATE TABLE `venues` (
 --
 
 INSERT INTO `venues` (`venue_id`, `venue_name`) VALUES
-(1, '5th Floor Heb Room'),
-(2, 'Field'),
-(3, 'Gym'),
-(4, 'Multi Media Room');
+(1, 'Heb room 5th Floor');
 
 --
 -- Indexes for dumped tables
@@ -207,6 +293,37 @@ ALTER TABLE `departments`
   ADD PRIMARY KEY (`department_id`);
 
 --
+-- Indexes for table `order_product_history`
+--
+ALTER TABLE `order_product_history`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_product_id` (`order_product_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminId` (`adminId`);
+
+--
+-- Indexes for table `productsuppliers`
+--
+ALTER TABLE `productsuppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product` (`product`),
+  ADD KEY `supplier` (`supplier`);
+
+--
+-- Indexes for table `product_in`
+--
+ALTER TABLE `product_in`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `product_supplier_ibfk_1` (`supplier`),
+  ADD KEY `product_supplier_ibfk_2` (`product`),
+  ADD KEY `adminId` (`adminId`);
+
+--
 -- Indexes for table `reservations`
 --
 ALTER TABLE `reservations`
@@ -216,6 +333,19 @@ ALTER TABLE `reservations`
   ADD KEY `fk_reservations_department` (`department_id`),
   ADD KEY `fk_reservations_venue` (`venue_id`),
   ADD KEY `fk_reservations_admin` (`adminid`);
+
+--
+-- Indexes for table `reserved_ids`
+--
+ALTER TABLE `reserved_ids`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `adminId` (`adminId`);
 
 --
 -- Indexes for table `tbempinfo`
@@ -261,6 +391,13 @@ ALTER TABLE `tb_roles`
   ADD UNIQUE KEY `unique_role_name` (`role_name`);
 
 --
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `emp` (`emp`);
+
+--
 -- Indexes for table `venues`
 --
 ALTER TABLE `venues`
@@ -274,13 +411,49 @@ ALTER TABLE `venues`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `department_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `order_product_history`
+--
+ALTER TABLE `order_product_history`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(100) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `productsuppliers`
+--
+ALTER TABLE `productsuppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `product_in`
+--
+ALTER TABLE `product_in`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `reservations`
 --
 ALTER TABLE `reservations`
   MODIFY `reservation_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `reserved_ids`
+--
+ALTER TABLE `reserved_ids`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `suppliers`
+--
+ALTER TABLE `suppliers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tbempinfo`
@@ -316,60 +489,19 @@ ALTER TABLE `tb_admin`
 -- AUTO_INCREMENT for table `tb_roles`
 --
 ALTER TABLE `tb_roles`
-  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `venues`
 --
 ALTER TABLE `venues`
-  MODIFY `venue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
-
---
--- Constraints for dumped tables
---
-
---
--- Constraints for table `reservations`
---
-ALTER TABLE `reservations`
-  ADD CONSTRAINT `fk_reservations_admin` FOREIGN KEY (`adminid`) REFERENCES `tb_admin` (`adminid`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_reservations_department` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_reservations_emp` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_reservations_stud` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_reservations_venue` FOREIGN KEY (`venue_id`) REFERENCES `venues` (`venue_id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
---
--- Constraints for table `tbemp_acc`
---
-ALTER TABLE `tbemp_acc`
-  ADD CONSTRAINT `fk_department_emp` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_emp_roles` FOREIGN KEY (`role_id`) REFERENCES `tb_roles` (`role_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_empinfo_changes` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tbstudent_acc`
---
-ALTER TABLE `tbstudent_acc`
-  ADD CONSTRAINT `fk_department_student` FOREIGN KEY (`department_id`) REFERENCES `departments` (`department_id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_studinfo_changes` FOREIGN KEY (`studid`) REFERENCES `tbstudinfo` (`studid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `tb_admin`
---
-ALTER TABLE `tb_admin`
-  ADD CONSTRAINT `tb_admin_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `tbempinfo` (`empid`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-DELIMITER $$
---
--- Events
---
-CREATE DEFINER=`root`@`localhost` EVENT `update_event_status` ON SCHEDULE EVERY 1 SECOND STARTS '2023-11-24 08:50:18' ON COMPLETION NOT PRESERVE ENABLE DO BEGIN
-    UPDATE tb_event SET status = 'upcoming' WHERE event_date > CURRENT_TIMESTAMP;
-    UPDATE tb_event SET status = 'ongoing' WHERE DATE(event_date) = CURDATE();
-    UPDATE tb_event SET status = 'ended' WHERE event_date < CURRENT_TIMESTAMP;
-END$$
-
-DELIMITER ;
+  MODIFY `venue_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
