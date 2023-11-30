@@ -81,7 +81,7 @@ DROP TABLE IF EXISTS `returntable`;
 CREATE TABLE IF NOT EXISTS `returntable` (
   `ReturnID` int NOT NULL AUTO_INCREMENT,
   `ReserveID` int NOT NULL,
-  `empid` int DEFAULT NULL,
+  `UserID` int DEFAULT NULL,
   `DateApproved` date DEFAULT NULL,
   `DateReturn` date DEFAULT NULL,
   `Status` varchar(50) DEFAULT NULL,
