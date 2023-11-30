@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `nt_3101`
+-- Database: `db_nt3101`
 --
 
 -- --------------------------------------------------------
@@ -28,8 +28,8 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `employee_table` (
-  `employee_ID` varchar(255) NOT NULL,
-  `user_name` varchar(255) NOT NULL,
+  `employee_ID` varchar(255) NOT NULL, 
+  `empid` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -37,10 +37,10 @@ CREATE TABLE `employee_table` (
 -- Dumping data for table `employee_table`
 --
 
-INSERT INTO `employee_table` (`employee_ID`, `user_name`, `address`) VALUES
-('1', 'Nina', 'Pulo'),
-('2', 'Perd', 'Lipa'),
-('2', 'Perd', 'San Jose');
+INSERT INTO `employee_table` (`employee_ID`, `empid`, `address`) VALUES
+('1', '1', 'Pulo'),
+('2', '1', 'Lipa'),
+('2', '1', 'San Jose');
 
 -- --------------------------------------------------------
 
@@ -49,10 +49,9 @@ INSERT INTO `employee_table` (`employee_ID`, `user_name`, `address`) VALUES
 --
 
 CREATE TABLE `stud_table` (
-  `student_ID` int(11) NOT NULL,
+  `student_ID` int(11) NOT NULL, 
+  `studid` int(11) NOT NULL,
   `SRCode` varchar(255) NOT NULL,
-  `first_name` varchar(255) NOT NULL,
-  `last_name` varchar(255) NOT NULL,
   `birth_date` varchar(255) NOT NULL,
   `gender` varchar(255) NOT NULL,
   `address` varchar(255) NOT NULL
@@ -62,10 +61,9 @@ CREATE TABLE `stud_table` (
 -- Dumping data for table `stud_table`
 --
 
-INSERT INTO `stud_table` (`student_ID`, `SRCode`, `first_name`, `last_name`, `birth_date`, `gender`, `address`) VALUES
-(1, '21-30099', 'Cyrus', 'Basco', '11-11-2002', 'Male', 'Lipa'),
-(2, '21-11223', 'Kyla', 'Andes', '11-11-2002', 'Female', 'Lipa City'),
-(3, '21-99887', 'Carl', 'Pogi', '11-02-1998', 'Male', 'Lipa');
+INSERT INTO `stud_table` (`student_ID`, `studid`, `SRCode`,`birth_date`, `gender`, `address`) VALUES
+(1, '1', '21-30099','11-11-2002', 'Male', 'Lipa'),
+(2, '2', '21-11223','11-11-2002', 'Female', 'Lipa City');
 
 -- --------------------------------------------------------
 
@@ -74,11 +72,13 @@ INSERT INTO `stud_table` (`student_ID`, `SRCode`, `first_name`, `last_name`, `bi
 --
 
 CREATE TABLE `tbempinfo` (
-  `empid` int(11) NOT NULL,
+  `empid` int(11) NOT NULL, 
   `lastname` varchar(25) NOT NULL,
   `firstname` varchar(25) NOT NULL,
   `department` varchar(20) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;  -- Add semicolon here
+
+
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,7 @@ CREATE TABLE `tbstudinfo` (
 -- Dumping data for table `tbstudinfo`
 --
 
-INSERT INTO `tbstudinfo` (`studid`, `lastname`, `firstname`, `course`) VALUES
+INSERT INTO `tbstudinfo` (`studid`,`firstname`,`lastname`, `course`) VALUES
 (1, 'andes', 'kyla', 'bsit'),
 (2, 'alay', 'kathleen', 'bsit');
 
